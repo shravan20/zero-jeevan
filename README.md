@@ -30,3 +30,10 @@ python manage.py runserver
 That's it!
 
 Navigate to `http://127.0.0.1:5000/` and start your new project!
+
+To have mock data ready:
+
+After starting the server, please run the scripts in mock_data:
+
+- retreat_data.py
+- user_data.py
