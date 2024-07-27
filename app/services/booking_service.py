@@ -1,11 +1,11 @@
 from app.services.retreat_service import RetreatService
 from app.services.user_service import UserService
-from repositories.booking_repository import BookingRepository
+from app.repositories.booking_repository import BookingRepository
 
 class BookingService:
     
     def __init__(self):
-        self.booking_repository = BookingRepository()
+        self.repository = BookingRepository()
         self.retreat_service = RetreatService()
         self.user_service = UserService()
 
@@ -33,8 +33,8 @@ class BookingService:
                 return user, status
             user_id = user['id']
 
-        existing_booking = self.booking_repository.find_booking(user_id, retreat_id)
+        existing_booking = self.repository.find_booking(user_id, retreat_id)
         if existing_booking:
             return {"message": "Booking already exists for this user and retreat"}, 400
 
-        return self.booking_repository.add_booking(user_id, retreat_id, booking_date, payment_details)
+        return self.repository.add_booking(user_id, retreat_id, booking_date, payment_details)

@@ -1,7 +1,7 @@
 from sqlalchemy.exc import IntegrityError
 from app.models.booking_model import Booking
 from app.models.user_model import User
-from models.retreat_model import Retreat
+from app.models.retreat_model import Retreat
 from app import db
 
 class BookingRepository:
