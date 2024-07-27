@@ -6,8 +6,8 @@ class Booking(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     retreat_id = db.Column(db.Integer, db.ForeignKey('retreats.id'), nullable=False)
 
-    user = db.relationship('User', backref='bookings')
-    retreat = db.relationship('Retreat', backref='bookings')
+    user = db.relationship('User', back_populates='bookings')
+    retreat = db.relationship('Retreat', back_populates='bookings')
 
     def __repr__(self):
         return f'<Booking {self.user_id} at {self.retreat_id}>'

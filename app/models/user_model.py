@@ -7,6 +7,9 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     phone = db.Column(db.String, nullable=False)
 
+    bookings = db.relationship('Booking', back_populates='user')
+
+
     def __repr__(self):
         return f'<User {self.name}>'
 

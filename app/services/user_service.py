@@ -12,3 +12,7 @@ class UserService:
     
     def get_users(self):
         return self.repository.get_users()
+    
+    def user_exists(self, email, phone):
+        if self.repository.user_exists(email, phone):
+            return {"message": "User with this email already exists"}, 400

@@ -1,5 +1,4 @@
 from flask import Blueprint, request, jsonify
-from flask import Blueprint, request, jsonify
 from app.services.retreat_service import RetreatService
 from marshmallow.exceptions import ValidationError
 
@@ -39,8 +38,9 @@ def create_retreat():
     if request.content_type != 'application/json':
         return jsonify({"message": "Content-Type must be application/json"}), 415
 
+    data = request.get_json()
     try:
-        data = retreat_schema.load(request.json)
+        retreat_schema.load(data)
     except ValidationError as err:
         return jsonify({"errors": err.messages}), 400
 

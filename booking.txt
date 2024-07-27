@@ -1,0 +1,27 @@
+from flask import Blueprint, request, jsonify
+from app.validations.booking_schema import BookingSchema
+from marshmallow.exceptions import ValidationError
+from app.services.booking_service import BookingService
+
+booking_bp = Blueprint('booking', __name__)
+booking_schema = BookingSchema()
+booking_service = BookingService()
+
+
+@booking_bp.route('/bookings', methods=['GET'])
+def book_retreat():
+    data = request.json
+    return jsonify({'test':'success'})
+
+# @booking_bp.route('/bookings', methods=['POST'])
+# def create_booking():
+#     if request.content_type != 'application/json':
+#         return jsonify({"message": "Content-Type must be application/json"}), 415
+
+#     try:
+#         data = {}#booking_schema.load(request.json)  # Deserialize and validate
+#     except ValidationError as err:
+#         return jsonify({"errors": err.messages}), 400
+
+#     result, status_code = booking_service.create_booking(data)
+#     return jsonify(result), status_code

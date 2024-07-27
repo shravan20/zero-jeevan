@@ -14,6 +14,9 @@ class Retreat(db.Model):
     tag = db.Column(db.ARRAY(db.String), nullable=True)  
     duration = db.Column(db.Integer, nullable=False)  
 
+    bookings = db.relationship('Booking', back_populates='retreat')
+
+
     def __repr__(self):
         return f'<Retreat {self.title}>'
 
