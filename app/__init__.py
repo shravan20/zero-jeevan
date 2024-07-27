@@ -20,9 +20,11 @@ def create_app():
 
     from app.controllers.retreat_controller import retreat_bp
     from app.controllers.booking_controller import booking_bp
+    from app.controllers.user_controller import user_bp
 
     app.register_blueprint(retreat_bp)
     app.register_blueprint(booking_bp)
+    app.register_blueprint(user_bp)
 
     return app
 
@@ -42,9 +44,18 @@ def app_logger(app):
 
 def verify_db_connection(app):
     with app.app_context():
+        # Import models to ensure they are registered
+        from app.models.retreat_model import Retreat
+        from app.models.user_model import User
+        from app.models.booking_model import Booking
+
         try:
             db.engine.connect()
             app.logger.info("Database connection successful")
         except Exception as e:
             app.logger.error(f"Database connection failed: {e}")
             raise
+
+        db.create_all()
+        app.logger.info("Tables created (if they did not already exist)")
+
