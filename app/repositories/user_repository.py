@@ -3,12 +3,21 @@ from app.models.user_model import User
 from sqlalchemy.exc import IntegrityError
 
 class UserRepository:
-    def user_exists(self, email, phone):
+    def user_exists(self, email, phone, need_data=False):
         query = User.query
         if email:
             query = query.filter_by(email=email)
         if phone:
             query = query.filter_by(phone=phone)
+
+        final_data = query.first()
+        if final_data is not None and need_data:
+            return {
+                'id': final_data.id,
+                'name': final_data.name,
+                'email': final_data.email,
+                "phone": final_data.phone
+            }
         return query.first() is not None
 
     def add_user(self, data):

@@ -7,6 +7,7 @@ from app import db
 class BookingRepository:
     
     def add_booking(self, user_id, retreat_id, booking_date, payment_details):
+        print((user_id, retreat_id, booking_date, payment_details))
         try:
             booking = Booking(
                 user_id=user_id,
@@ -19,9 +20,9 @@ class BookingRepository:
             db.session.commit()
             return {"message": "Booking created successfully"}, 201
         
-        except IntegrityError:
+        except IntegrityError as e:
             db.session.rollback()
-            return {"message": "Error creating booking or duplicate booking"}, 500
+            return {"message": f"Error creating booking or duplicate booking / {str(e)}"}, 500
 
     def find_booking(self, user_id, retreat_id):
         return db.session.query(Booking).filter_by(user_id=user_id, retreat_id=retreat_id).first()

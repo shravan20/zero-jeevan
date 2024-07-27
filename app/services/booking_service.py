@@ -10,6 +10,7 @@ class BookingService:
         self.user_service = UserService()
 
     def create_booking(self, data):
+
         user_id = data.get('user_id')
         user_name = data.get('user_name')
         user_email = data.get('user_email')
@@ -21,7 +22,8 @@ class BookingService:
         if not self.retreat_service.get_retreat_by_id(retreat_id):
             return {"message": "Retreat does not exist"}, 400
 
-        user = self.user_service.user_exists(email=user_email, phone=user_phone)
+        user = self.user_service.user_exists(email=user_email, phone=user_phone,need_data=True)
+        print(user)
         if not user:
             new_user = {
                 'name':user_name,
@@ -36,5 +38,5 @@ class BookingService:
         existing_booking = self.repository.find_booking(user_id, retreat_id)
         if existing_booking:
             return {"message": "Booking already exists for this user and retreat"}, 400
-
+    
         return self.repository.add_booking(user_id, retreat_id, booking_date, payment_details)
