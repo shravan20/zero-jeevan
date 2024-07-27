@@ -16,3 +16,18 @@ class Retreat(db.Model):
 
     def __repr__(self):
         return f'<Retreat {self.title}>'
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'description': self.description,
+            'date': self.date.isoformat() if self.date else None,
+            'location': self.location,
+            'price': self.price,
+            'type': self.type,
+            'condition': self.condition,
+            'image': self.image,
+            'tag': self.tag,
+            'duration': self.duration
+        }
