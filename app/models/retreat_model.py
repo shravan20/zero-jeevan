@@ -2,7 +2,7 @@ from app import db
 
 class Retreat(db.Model):
     __tablename__ = 'retreats'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, unique=True)
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=True)
     date = db.Column(db.DateTime, nullable=False)  

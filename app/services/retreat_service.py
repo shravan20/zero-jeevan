@@ -19,4 +19,7 @@ class RetreatService:
     
     
     def create_retreat(self, data):
+            existing_retreat = self.repository.find_by_title_and_date(data['title'], data['date'])
+            if existing_retreat:
+                return {"message": "Retreat with the same title and date already exists"}, 400
             return self.repository.add_retreat(data)

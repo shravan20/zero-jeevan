@@ -2,7 +2,6 @@ from app import db
 from app.models.retreat_model import Retreat
 from sqlalchemy.exc import IntegrityError
 
-
 class RetreatRepository:
     def filter_retreats(self, filters):
         query = Retreat.query
@@ -49,3 +48,5 @@ class RetreatRepository:
             db.session.rollback()
             return {"message": "Error creating retreat"}, 500
 
+    def find_by_title_and_date(self, title, date):
+        return db.session.query(Retreat).filter_by(title=title, date=date).first()
